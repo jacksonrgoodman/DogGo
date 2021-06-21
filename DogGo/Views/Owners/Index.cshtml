@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DogGo.Models.Walker>
+﻿@model IEnumerable<DogGo.Models.Owner>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,18 +13,20 @@
     <thead>
         <tr>
             <th>
-                <!--@Html.DisplayNameFor(model => model.ImageUrl)-->
-                Avatar
+                @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-                <!-- @Html.DisplayNameFor(model => model.Name) -->
-                Dog Walker
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                <!--@Html.DisplayNameFor(model => model.Neighborhood.Name) -->
-                Neighborhood
+                @Html.DisplayNameFor(model => model.Address)
             </th>
-            
+            <th>
+                @Html.DisplayNameFor(model => model.Neighborhood)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -32,15 +34,20 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <img src="@item.ImageUrl" alt="avatar" />
+                @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Neighborhood.Name)
             </td>
-            
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
