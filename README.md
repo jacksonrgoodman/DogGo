@@ -1,8 +1,8 @@
-[![.NET](https://img.shields.io/badge/-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)](#)
+[![.NET](https://img.shields.io/badge/VS-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)](#)
 [![C#](https://img.shields.io/badge/c%23-006400.svg?style=for-the-badge&logo=c-sharp&logoColor=white)](#)
 [![SQL](https://img.shields.io/badge/SQL-CC2927.svg?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)](#)
 [![ASP.NET](https://img.shields.io/badge/ASP.NET-%231572B6.svg?style=for-the-badge&logo=.net&logoColor=white)](#)
-[![HTML 5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)](#)
+[![HTML 5](https://img.shields.io/badge/CShtml-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)](#)
 
 
 # DogGo
