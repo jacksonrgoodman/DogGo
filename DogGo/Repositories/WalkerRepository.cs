@@ -111,6 +111,43 @@ namespace DogGo.Repositories
                 }
             }
         }
+        public List<Walker> GetWalkersInNeighborhood(int neighborhoodId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                SELECT Id, [Name], ImageUrl, NeighborhoodId
+                FROM Walker
+                WHERE NeighborhoodId = @neighborhoodId
+            ";
+
+                    cmd.Parameters.AddWithValue("@neighborhoodId", neighborhoodId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<Walker> walkers = new List<Walker>();
+                    while (reader.Read())
+                    {
+                        Walker walker = new Walker
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
+                            NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId"))
+                        };
+
+                        walkers.Add(walker);
+                    }
+
+                    reader.Close();
+
+                    return walkers;
+                }
+            }
+        }
         public void AddWalker(Walker walker)
         {
             using (SqlConnection conn = Connection)
@@ -121,7 +158,7 @@ namespace DogGo.Repositories
                     cmd.CommandText = @"
                     INSERT INTO Walker ([Name], ImageUrl, NeighborhoodId)
                     OUTPUT INSERTED.ID
-                    VALUES (@name, @imagurl, @neighborhoodId);
+                    VALUES (@name, @imageurl, @neighborhoodId);
                 ";
 
                     cmd.Parameters.AddWithValue("@name", walker.Name);
@@ -135,35 +172,31 @@ namespace DogGo.Repositories
             }
         }
 
-        //public void UpdateWalker(Walker walker)
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
+        public void UpdateWalker(Walker walker)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
 
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"
-        //                    UPDATE Walker
-        //                    SET 
-        //                        [Name] = @name, 
-        //                        Email = @email, 
-        //                        Address = @address, 
-        //                        Phone = @phone, 
-        //                        NeighborhoodId = @neighborhoodId
-        //                    WHERE Id = @id";
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE Walker
+                            SET 
+                                [Name] = @name, 
+                                ImageUrl = @imageurl, 
+                                NeighborhoodId = @neighborhoodId
+                            WHERE Id = @id";
 
-        //            cmd.Parameters.AddWithValue("@name", walker.Name);
-        //            cmd.Parameters.AddWithValue("@email", walker.Email);
-        //            cmd.Parameters.AddWithValue("@address", walker.Address);
-        //            cmd.Parameters.AddWithValue("@phone", walker.Phone);
-        //            cmd.Parameters.AddWithValue("@neighborhoodId", walker.NeighborhoodId);
-        //            cmd.Parameters.AddWithValue("@id", walker.Id);
+                    cmd.Parameters.AddWithValue("@name", walker.Name);
+                    cmd.Parameters.AddWithValue("@imageurl", walker.ImageUrl);
+                    cmd.Parameters.AddWithValue("@neighborhoodId", walker.NeighborhoodId);
+                    cmd.Parameters.AddWithValue("@id", walker.Id);
 
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
-        //}
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         public void DeleteWalker(int walkerId)
         {

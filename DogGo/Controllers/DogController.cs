@@ -8,103 +8,103 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DogGo.Controllers
 {
-    public class WalkersController : Controller
+    public class DogController : Controller
     {
-        private readonly IWalkerRepository _walkerRepo;
+        private readonly IDogRepository _dogRepo;
 
-        // ASP.NET will give us an instance of our Walker Repository. This is called "Dependency Injection"
-        public WalkersController(IWalkerRepository walkerRepository)
+        //TODO ASP.NET will give us an instance of our Dog Repository. This is called "Dependency Injection"
+        public DogController(IDogRepository dogRepository)
         {
-            _walkerRepo = walkerRepository;
+            _dogRepo = dogRepository;
         }
-        //TODO GET: Walkers
+        //TODO GET: Dogs
         public ActionResult Index()
         {
-            List<Walker> walkers = _walkerRepo.GetAllWalkers();
+            List<Dog> dogs = _dogRepo.GetAllDogs();
 
-            return View(walkers);
+            return View(dogs);
         }
         //TODO GET: Walkers/Details/*example ID*
         public ActionResult Details(int id)
         {
-            Walker walker = _walkerRepo.GetWalkerById(id);
+            Dog dog = _dogRepo.GetDogById(id);
 
-            if (walker == null)
+            if (dog == null)
             {
                 return NotFound();
             }
 
-            return View(walker);
+            return View(dog);
         }
-        //TODO GET: Walkers/Create
+        //TODO GET: Dogs/Create
         public IActionResult Create()
         {
             return View();
         }
-        //TODO POST: Walkers/Create
+        //TODO POST: Dogs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Walker walker)
+        public ActionResult Create(Dog dog)
         {
             try
             {
-                _walkerRepo.AddWalker(walker);
+                _dogRepo.AddDog(dog);
 
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                return View(walker);
+                return View(dog);
             }
         }
         public ActionResult Delete(int id)
         {
-            Walker walker = _walkerRepo.GetWalkerById(id);
+            Dog dog = _dogRepo.GetDogById(id);
 
-            return View(walker);
+            return View(dog);
         }
         //TODO POST: Owners/Delete/*EXAMPLE ID*
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Walker walker)
+        public ActionResult Delete(int id, Dog dog)
         {
             try
             {
-                _walkerRepo.DeleteWalker(id);
+                _dogRepo.DeleteDog(id);
 
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                return View(walker);
+                return View(dog);
             }
         }
-        //TODO GET: Walkers/Edit/*EXAMPLE ID*
+        //TODO GET: Dogs/Edit/*EXAMPLE ID*
         public ActionResult Edit(int id)
         {
-            Walker walker = _walkerRepo.GetWalkerById(id);
+            Dog dog = _dogRepo.GetDogById(id);
 
-            if (walker == null)
+            if (dog == null)
             {
                 return NotFound();
             }
 
-            return View(walker);
+            return View(dog);
         }
-        //TODO POST: Walkers/Edit/*EXAMPLE ID*
+        //TODO POST: Dogs/Edit/*EXAMPLE ID*
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Walker walker)
+        public ActionResult Edit(int id, Dog dog)
         {
             try
             {
-                _walkerRepo.UpdateWalker(walker);
+                _dogRepo.UpdateDog(dog);
 
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                return View(walker);
+                return View(dog);
             }
         }
     }
