@@ -11,7 +11,7 @@ Developed by [Jackson Goodman](https://github.com/jacksonrgoodman), For Cohort 4
 1. git clone this repository
 
 ## Usage
-1. TBD, run builds in [![VS](https://img.shields.io/badge/VS_2019-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)](#) for now
+1. Run builds in [![VS](https://img.shields.io/badge/VS_2019-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)](#) for now
 
 ## Contributing
 [Jackson Goodman](https://github.com/jacksonrgoodman)  
