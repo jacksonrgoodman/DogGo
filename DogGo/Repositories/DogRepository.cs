@@ -105,7 +105,15 @@ namespace DogGo.Repositories
                             OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
                             Owner = owner
                         };
-
+                        // Check if optional columns are null
+                        if (reader.IsDBNull(reader.GetOrdinal("Notes")) == false)
+                        {
+                            dog.Notes = reader.GetString(reader.GetOrdinal("Notes"));
+                        }
+                        if (reader.IsDBNull(reader.GetOrdinal("ImageUrl")) == false)
+                        {
+                            dog.ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl"));
+                        }
                         reader.Close();
                         return dog;
                     }
@@ -127,7 +135,7 @@ namespace DogGo.Repositories
                 {
                     cmd.CommandText = @"
                 SELECT Id, Name, Breed, Notes, ImageUrl, OwnerId 
-                FROM Dog
+                    FROM Dog
                 WHERE OwnerId = @ownerId
             ";
 
@@ -172,19 +180,38 @@ namespace DogGo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO Dog ([Name], ImageUrl, Breed, Notes)
+                INSERT INTO Dog ([Name], OwnerId, Breed, Notes, ImageUrl)
                     OUTPUT INSERTED.ID
-                    VALUES (@name, @imageurl, @breed, @notes);
-                ";
+                    VALUES (@name, @ownerId, @breed, @notes, @imageUrl);
+            ";
 
                     cmd.Parameters.AddWithValue("@name", dog.Name);
-                    cmd.Parameters.AddWithValue("@imageurl", dog.ImageUrl);
-                    cmd.Parameters.AddWithValue("@notes", dog.Notes);
                     cmd.Parameters.AddWithValue("@breed", dog.Breed);
+                    cmd.Parameters.AddWithValue("@ownerId", dog.OwnerId);
 
+                    // nullable columns
+                    if (dog.Notes == null)
+                    {
+                        cmd.Parameters.AddWithValue("@notes", DBNull.Value);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@notes", dog.Notes);
+                    }
+
+                    if (dog.ImageUrl == null)
+                    {
+                        cmd.Parameters.AddWithValue("@imageUrl", DBNull.Value);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@imageUrl", dog.ImageUrl);
+                    }
+                    
                     int id = (int)cmd.ExecuteScalar();
 
                     dog.Id = id;
+
                 }
             }
         }
