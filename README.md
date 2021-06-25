@@ -8,7 +8,7 @@
 # DogGo
 Developed by [Jackson Goodman](https://github.com/jacksonrgoodman), For Cohort 47's Back End.
 ## Installation
-1. git clone this repository
+1. `git clone` or download this repository
 
 ## Usage
 1. Run builds in [![VS](https://img.shields.io/badge/VS_2019-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)](#) for now
